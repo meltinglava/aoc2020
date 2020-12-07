@@ -32,7 +32,7 @@ fn parse(inp: Vec<String>) -> TaskType {
 }
 
 fn bag_contains(bag: &str, bags: &TaskType, visited: &mut HashSet<String>) -> bool {
-    for (b, _) in &bags[bag] {
+    for b in bags[bag].keys() {
         if b == "shiny gold" {
             return true;
         }
