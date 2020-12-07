@@ -2,18 +2,20 @@ use std::fmt::Debug;
 use std::fs::File;
 use std::io::BufRead;
 use std::io::BufReader;
+use std::iter::FromIterator;
 use std::str::FromStr;
 
 pub fn read_input() -> String {
     std::fs::read_to_string("input.txt").unwrap()
 }
 
-pub fn read_input_lines<T>() -> Vec<T>
+pub fn read_input_lines<C, T>() -> C
 where
-    T: FromStr + Debug, <T as FromStr>::Err: Debug
+    C: FromIterator<T>,
+    T: FromStr + Debug, <T as FromStr>::Err: Debug,
 {
     let f = File::open("input.txt").unwrap();
-    BufReader::new(f).lines().map(|l| l.unwrap()).map(|l| l.parse().unwrap()).collect::<Vec<T>>()
+    BufReader::new(f).lines().map(|l| l.unwrap()).map(|l| l.parse().unwrap()).collect::<C>()
 }
 
 
